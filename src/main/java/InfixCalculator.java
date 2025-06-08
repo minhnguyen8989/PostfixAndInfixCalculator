@@ -2,16 +2,35 @@ import java.util.Stack;
 
 public class InfixCalculator {
 
+    /**
+     * Checks if a character is a supported operator.
+     * @param charactor the character to check
+     * @return true if the character is '+', '-', '*', '/', or '%', false otherwise
+     */
     private boolean isOperator(char charactor) {
         return charactor == '+' || charactor == '-' || charactor == '*' || charactor == '/' || charactor == '%';
     }
 
+    /**
+     * Returns the precedence level of an operator.
+     * Higher number means higher precedence.
+     * @param operator the operator character
+     * @return precedence value (1 for '+' and '-', 2 for '*', '/', '%', 0 if not an operator)
+     */
     private int precedence(char operator) {
         if (operator == '+' || operator == '-') return 1;
         if (operator == '*' || operator == '/' || operator == '%') return 2;
         return 0;
     }
 
+    /**
+     * Applies the given operator to two integer operands.
+     * @param a first operand
+     * @param b second operand
+     * @param operator operator to apply ('+', '-', '*', '/', '%')
+     * @return the result of the operation
+     * @throws ArithmeticException if division or modulo by zero occurs
+     */
     private int applyOp(int a, int b, char operator) {
         switch (operator) {
             case '+': return a + b;
@@ -27,6 +46,11 @@ public class InfixCalculator {
         }
     }
 
+    /**
+     * Validates that parentheses in the expression are balanced and properly nested.
+     * @param expression the string expression to check
+     * @throws IllegalArgumentException if parentheses are unmatched or improperly nested
+     */
     private void validateParentheses(String expression) {
         Stack<Character> stack = new Stack<>();
         for (int i = 0; i < expression.length(); i++) {
@@ -45,12 +69,23 @@ public class InfixCalculator {
         }
     }
 
+    /**
+     * Checks that the expression contains at least one pair of parentheses.
+     * @param expression the string expression to check
+     * @throws IllegalArgumentException if expression does not contain '(' or ')'
+     */
     private void requireParentheses(String expression) {
         if (!expression.contains("(") || !expression.contains(")")) {
             throw new IllegalArgumentException("Invalid infix expression");
         }
     }
 
+    /**
+     * Evaluates a mathematical expression in infix notation.
+     * Supports operators '+', '-', '*', '/', '%', and parentheses.
+     * @param expression the infix expression to evaluate
+     * @return the computed integer result or Integer.MIN_VALUE if invalid
+     */
     public int evaluateInfix(String expression) {
         try {
             requireParentheses(expression);
@@ -123,6 +158,13 @@ public class InfixCalculator {
         }
     }
 
+    /**
+     * Evaluates a mathematical expression in postfix (Reverse Polish) notation.
+     * Tokens must be space-separated.
+     * Supports operators '+', '-', '*', '/', '%'.
+     * @param expression the postfix expression to evaluate
+     * @return the computed integer result or Integer.MIN_VALUE if invalid
+     */
     public int evaluatePostfix(String expression) {
         try {
             Stack<Integer> stack = new Stack<>();
@@ -158,7 +200,7 @@ public class InfixCalculator {
         if (result1 != Integer.MIN_VALUE) System.out.println("Result 1: " + result1);
 
         //Valid Expression Case 2
-        String expression2 = "5+(3*7)";
+        String expression2 = "50+(3*7)";
         int result2 = calculator.evaluateInfix(expression2);
         if (result2 != Integer.MIN_VALUE) System.out.println("Result 2: " + result2);
 
