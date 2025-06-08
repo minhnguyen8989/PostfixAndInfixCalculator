@@ -47,7 +47,7 @@ public class InfixCalculator {
 
     private void requireParentheses(String expression) {
         if (!expression.contains("(") || !expression.contains(")")) {
-            throw new IllegalArgumentException("Missing Parentheses");
+            throw new IllegalArgumentException("Invalid infix expression");
         }
     }
 
@@ -114,6 +114,9 @@ public class InfixCalculator {
             if (values.size() != 1) throw new IllegalArgumentException("Invalid expression");
 
             return values.pop();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: Invalid infix expression");
+            return Integer.MIN_VALUE;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             return Integer.MIN_VALUE;
@@ -150,19 +153,23 @@ public class InfixCalculator {
         InfixCalculator calculator = new InfixCalculator();
 
         //Valid Expression Case 1
-        String expression1 = "(4+2)*3";
-        System.out.println("Result 1: " + calculator.evaluateInfix(expression1));
+        String expression1 = "( 4 + 2 ) * 3";
+        int result1 = calculator.evaluateInfix(expression1);
+        if (result1 != Integer.MIN_VALUE) System.out.println("Result 1: " + result1);
 
         //Valid Expression Case 2
         String expression2 = "5+(3*7)";
-        System.out.println("Result 2: " + calculator.evaluateInfix(expression2));
+        int result2 = calculator.evaluateInfix(expression2);
+        if (result2 != Integer.MIN_VALUE) System.out.println("Result 2: " + result2);
 
         // Missing parentheses Case
-        String expression3 = "3 + 4 * 2";
-        System.out.println("Result 3: " + calculator.evaluateInfix(expression3));
+        String expression3 = "3+4*2";
+        int result3 = calculator.evaluateInfix(expression3);
+        if (result3 != Integer.MIN_VALUE) System.out.println("Result 3: " + result3);
 
         // Postfix Expression Case
         String expression4 = "4 2 + 3 *";
-        System.out.println("Result 4: " + calculator.evaluatePostfix(expression4));
+        int result4 = calculator.evaluatePostfix(expression4);
+        if (result4 != Integer.MIN_VALUE) System.out.println("Result 4: " + result4);
     }
 }
