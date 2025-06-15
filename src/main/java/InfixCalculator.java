@@ -80,16 +80,18 @@ public class InfixCalculator {
         }
     }
 
-    /**
-     * Evaluates a mathematical expression in infix notation.
-     * Supports operators '+', '-', '*', '/', '%', and parentheses.
-     * @param expression the infix expression to evaluate
-     * @return the computed integer result or Integer.MIN_VALUE if invalid
-     */
+    // Remove requireParentheses method completely or comment it out:
+// private void requireParentheses(String expression) {
+//     if (!expression.contains("(") || !expression.contains(")")) {
+//         throw new IllegalArgumentException("Invalid infix expression");
+//     }
+// }
+
     public int evaluateInfix(String expression) {
         try {
-            requireParentheses(expression);
-            validateParentheses(expression);
+            // Remove call to requireParentheses
+            validateParentheses(expression);  // Only check parentheses balance
+
             Stack<Integer> values = new Stack<>();
             Stack<Character> characters = new Stack<>();
 
@@ -157,6 +159,7 @@ public class InfixCalculator {
             return Integer.MIN_VALUE;
         }
     }
+
 
     /**
      * Evaluates a mathematical expression in postfix (Reverse Polish) notation.
